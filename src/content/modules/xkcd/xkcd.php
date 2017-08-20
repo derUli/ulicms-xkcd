@@ -27,7 +27,7 @@ class xkcd{
 	}
 	
 	public function refresh(){
-		$raw = json_decode(file_get_contents_wrapper('http://xkcd.com/info.0.json', true), true); //get the latest comic info
+		$raw = json_decode(file_get_contents('http://xkcd.com/info.0.json'), true); //get the latest comic info
 		$comic = new xkcdcomic($raw, $this); //initalize a new comic object
 		$this->addcache($comic);
 		$this->latestnum = $comic->num;
@@ -42,7 +42,7 @@ class xkcd{
 			if(array_key_exists($num, $this->cache)){
 				return $this->cache[$num];
 			}else{
-			    $raw = json_decode(file_get_contents_wrapper('http://xkcd.com/'.$num.'/info.0.json', true), true);
+			    $raw = json_decode(file_get_contents('http://xkcd.com/'.$num.'/info.0.json'), true);
 				$comic = new xkcdcomic($raw, $this);
 				$this->addcache($comic);
 				return $comic;
